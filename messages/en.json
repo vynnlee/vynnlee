@@ -1,0 +1,38 @@
+{
+  "Home": {
+    "title": "Vynn Lee",
+    "subtitle": "Design Engineer",
+    "bio1": "Designing and building digital products with obsessive attention to detail.",
+    "bio2": "I value clear, sincere communication — in interfaces and beyond.",
+    "bio3": "Currently studying at SNUST.",
+    "worksLabel": "Some of my work:",
+    "work1Desc": "LLM-powered NLP research company",
+    "work2Desc": "design system redesign",
+    "work3Desc": "interfaces for corporations and public institutions",
+    "work4Desc": "UX/UI for a lost-and-found app",
+    "projectsLabel": "Side projects:",
+    "project1Desc": "server time timer for course registration & ticketing",
+    "project2Desc": "university notice board notifier",
+    "posts": "Posts",
+    "allPosts": "All posts",
+    "contact": "Contact"
+  },
+  "Blog": {
+    "title": "All Posts",
+    "backToHome": "Back to home",
+    "backToBlog": "Back to blog",
+    "share": "Share",
+    "viewMarkdown": "View as Markdown",
+    "noPosts": "No posts yet."
+  },
+  "Footer": {
+    "switchLocale": "한국어",
+    "switchLocaleLabel": "Switch to Korean"
+  },
+  "Metadata": {
+    "title": "Vynn Lee",
+    "description": "Vynn Lee is a design engineer building digital products with obsessive attention to detail. Writing about design, engineering, and technology.",
+    "blogTitle": "Blog — Vynn Lee's Writing",
+    "blogDescription": "Articles and notes on design engineering, product development, and technology by Vynn Lee. Covering tools, workflows, and lessons learned."
+  }
+}

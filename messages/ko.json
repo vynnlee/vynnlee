@@ -1,0 +1,38 @@
+{
+  "Home": {
+    "title": "Vynn Lee",
+    "subtitle": "Design Engineer",
+    "bio1": "Designing and building digital products with obsessive attention to detail.",
+    "bio2": "I value clear, sincere communication — in interfaces and beyond.",
+    "bio3": "Currently studying at SNUST.",
+    "worksLabel": "Some of my work:",
+    "work1Desc": "LLM-powered NLP research company",
+    "work2Desc": "design system redesign",
+    "work3Desc": "interfaces for corporations and public institutions",
+    "work4Desc": "UX/UI for a lost-and-found app",
+    "projectsLabel": "Side projects:",
+    "project1Desc": "server time timer for course registration & ticketing",
+    "project2Desc": "university notice board notifier",
+    "posts": "Posts",
+    "allPosts": "All posts",
+    "contact": "Contact"
+  },
+  "Blog": {
+    "title": "모든 글",
+    "backToHome": "홈으로",
+    "backToBlog": "블로그로",
+    "share": "공유",
+    "viewMarkdown": "마크다운으로 보기",
+    "noPosts": "아직 글이 없습니다."
+  },
+  "Footer": {
+    "switchLocale": "English",
+    "switchLocaleLabel": "영어로 전환"
+  },
+  "Metadata": {
+    "title": "Vynn Lee",
+    "description": "디자인 엔지니어 Vynn Lee의 블로그. 디자인, 엔지니어링, 기술에 대해 씁니다.",
+    "blogTitle": "블로그 — Vynn Lee의 글",
+    "blogDescription": "Vynn Lee의 디자인 엔지니어링, 제품 개발, 기술에 대한 글 모음. 도구, 워크플로우, 배운 것들을 다룹니다."
+  }
+}

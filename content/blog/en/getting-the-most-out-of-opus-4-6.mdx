@@ -1,0 +1,261 @@
+---
+title: "Getting the Most Out of Anthropic Opus 4.6"
+date: "2026-02-08"
+description: "Prompting and workflow strategies for Opus 4.6's behavioral shifts: instruction following, context gathering, persistence, and writing."
+---
+
+## Purpose
+
+Design prompts and workflows around Opus 4.6's behavioral shifts to improve both quality and predictability in complex tasks like coding, documentation, and analysis.
+
+## Key Takeaways
+
+- Opus 4.6 follows instructions more precisely, reads more context before acting, persists longer on hard problems, offers opinions more proactively, and maintains better consistency in long-form writing.
+- The most effective workflow is a `Spec -> Comprehension check -> Plan -> Execute -> Verify` pipeline.
+- Role-playing ("act as an expert") is less effective. What drives performance is inputs, constraints, output format, and acceptance criteria.
+
+## At a Glance
+
+| Change | What it means | Prompt lever | Watch out for |
+|---|---|---|---|
+| Stronger instruction following | Fewer reminders needed | Spec-first, explain intent (why) | Precisely following contradictory rules |
+| Context-first | Reads and understands before acting | Front-load context, limit scope | Reading cost grows with scope |
+| More persistence | Higher first-try success on multi-step tasks | Stop conditions, attempt limits | Deadline/scope overrun |
+| Stronger opinions | Faster decisions, proactive suggestions | 3 options + tradeoffs | Unexpected changes |
+| Better writing | Style matching, consistency | Samples + anti-patterns | AI patterns remain without guidance |
+
+## Core Principles
+
+### Spec-first
+
+Opus 4.6 follows instructions well. This means **if your prompt is vague, it will precisely execute the vagueness**. Turn questions into specifications.
+
+- **Goal**: What does "done" look like (including acceptance criteria)
+- **Inputs**: Available context, data, and files
+- **Constraints**: Scope, prohibitions, time budget
+- **Output format**: Result structure (headings, tables, code blocks)
+
+### Plan then execute
+
+Opus 4.6 can set direction and start faster than before. To prevent unwanted changes, require it to "submit a plan before executing."
+
+## Leveraging Each Behavioral Change
+
+### Follows instructions more precisely
+
+#### What this means
+
+- Less need to repeat yourself. Instructions are less likely to drift even in long sessions.
+- More likely to pick up patterns from fewer examples and generalize.
+- Give rules and it follows rules. Give intent and it extends to broader scope.
+
+#### How to use it
+
+- **Say it once**: Rather than adding mid-conversation reminders, deliver requirements as a complete spec upfront.
+- **Few examples, high quality**: Instead of more examples, add one line explaining the intent (why this rule exists).
+- **Drop the reminders**: "And don't forget to..." is mostly noise.
+
+#### Practical prompt
+
+```text
+Goal:
+- [definition of done]
+
+Inputs:
+- [context/data]
+
+Constraints:
+- In scope: [...]
+- Out of scope: [...]
+- Do not: [...]
+
+Output format:
+- [heading structure/table/code block rules]
+
+Quality bar:
+- [criterion 1]
+- [criterion 2]
+```
+
+#### Failure modes and fixes
+
+- **Contradictory constraints**: The model precisely follows contradictions too.
+  - Fix: Add a one-line priority order. E.g., `accuracy > scope > speed > style`.
+- **Too many rules**: More rules means higher collision probability.
+  - Fix: Compress rules into 3-5 "acceptance criteria."
+
+### Gathers context before acting
+
+#### What this means
+
+- Stronger tendency to understand the full picture (file structure, existing patterns, dependencies) before making changes.
+- Can process large documents, codebases, and datasets to build understanding before responding.
+- Session starts may feel slower (reading time).
+
+#### How to use it
+
+- **Front-load context**: The quality of information shared early directly determines output quality.
+- **Skip role assignments**: "Act as an expert" matters less than actual context.
+- **Narrow scope for quick requests**: Specify "this file only" or "this function only."
+- **Ask for a comprehension summary first**: Catch misunderstandings before execution.
+
+#### Practical prompt (code changes)
+
+```text
+Before changes:
+- Summarize how this module works (5 bullets).
+- List risks/edge cases.
+Then propose the smallest viable change.
+```
+
+#### Failure modes and fixes
+
+- **Over-gathering context**: Time spent reading instead of acting.
+  - Fix: Set a reading budget. E.g., "Skim in 3 minutes, convert uncertainties to questions."
+- **Scope creep**: Attempts to refactor the entire system.
+  - Fix: Set hard out-of-scope boundaries. E.g., "Do not modify adjacent modules."
+
+### Persists on difficult tasks
+
+#### What this means
+
+- Higher first-attempt success rate on complex multi-step tasks.
+- May take longer and try multiple approaches without checking in.
+- May over-deliver (unnecessary files, excessive prose, side tasks).
+
+#### How to use it
+
+- **Design checkpoints**: "After each major step, stop and ask before proceeding."
+- **Set attempt limits and stop conditions**: "After 2 approaches, ask questions."
+- **Intervene on loops**: If it's cycling through variations without progress, change direction.
+
+#### Practical prompt (exploration limits)
+
+```text
+Try at most 2 approaches.
+If both fail, stop and ask 3 targeted questions.
+Do not create extra files unless explicitly requested.
+```
+
+#### Failure modes and fixes
+
+- **Deadline overrun from perfectionism**: Time leaks from chasing a better answer.
+  - Fix: Pair a time budget with acceptance criteria. E.g., "A passing version within 30 minutes."
+- **Over-production**: Generating deliverables you didn't ask for.
+  - Fix: Pin the deliverable to one sentence.
+
+### Offers opinions more proactively
+
+#### What this means
+
+- More likely to decide direction quickly and propose alternatives first.
+- In agent/code execution environments, may jump to implementation instead of presenting options.
+- Less susceptible to leading questions, but problem framing still matters.
+
+#### How to use it
+
+- **Request alternatives first**: "3 approaches + tradeoffs + recommendation."
+- **Require a plan before execution**: "Explain your approach before making changes."
+- **Lock decisions once made**: "Alternatives have been reviewed. Proceed with this approach."
+- **Stress-test intentionally**: "What are the problems with this plan?"
+
+#### Practical prompt (decision frame)
+
+```text
+Give 3 approaches with tradeoffs.
+Recommend one.
+Wait for my confirmation before executing.
+```
+
+#### Failure modes and fixes
+
+- **Confident assertions**: May hide uncertainty behind confident answers.
+  - Fix: Always require "assumptions and how to verify them" for uncertain areas.
+
+### Delivers stronger writing
+
+#### What this means
+
+- Better style matching, voice consistency in long-form writing, and structural coherence.
+- Unguided output may still exhibit AI patterns (abstract, hedging, over-organized).
+
+#### How to use it
+
+- **Start with examples**: 1-2 paragraphs of your desired style is enough.
+- **Specify what to avoid**: Banned expressions, tones, and writing habits.
+- **Write in an edit loop**: Outline -> draft -> edit (cut fluff).
+
+#### Practical prompt (style lock)
+
+```text
+Match the style of this sample.
+Avoid: vague hedging, motivational tone, generic lists.
+Output in Markdown with H2/H3 headings.
+```
+
+### Where you'll notice the difference
+
+Tasks where Opus 4.6's strengths are immediately apparent:
+
+- **Company evaluation**: Thread narratives and contradictions across multiple documents (filings, patents, trials)
+- **Tool-augmented insights**: Track clues across multiple sources into a presentation
+- **Plan stress testing**: Trace cascading risks across scenarios
+- **Knowledge mapping**: Structure what you know vs. don't and generate gap-focused learning materials
+
+## Recipes by Task Type
+
+### Code changes
+
+- **Input**: 1-3 relevant files, current behavior, change goal, forbidden areas
+- **Process**: Comprehension summary -> change plan -> minimal change -> risk/test suggestions -> final patch
+
+### Research/summarization
+
+- **Input**: Links/documents, summary purpose (decision/learning/sharing), target audience
+- **Process**: Claim extraction -> evidence/counterexamples -> application scenarios -> action checklist
+
+### Documentation/writing
+
+- **Input**: Purpose, audience, tone, 1 sample, banned patterns
+- **Process**: Outline -> draft -> self-edit (remove filler) -> final version
+
+## Reusable Template
+
+```text
+Goal:
+- ...
+
+Inputs:
+- ...
+
+Constraints:
+- In scope: ...
+- Out of scope: ...
+- Do not: ...
+
+Output format:
+- ...
+
+Quality bar:
+- ...
+
+Process:
+- First summarize your understanding (5 bullets).
+- Then propose a plan (steps + risks).
+- Execute.
+- Self-check against Quality bar and revise once.
+```
+
+## Operations Checklist
+
+- Start recurring tasks from the same spec template.
+- Get a comprehension summary before any action.
+- Specify scope and stop conditions.
+- Use the 3 alternatives + tradeoffs pattern to leverage its opinionation.
+- Lock writing style with samples + anti-patterns.
+
+## References
+
+- [GeekNews](https://news.hada.io/topic?id=26459)
+- [Official Claude Tutorial](https://claude.com/resources/tutorials/get-the-most-from-claude-opus-4-6)
+- [YouTube](https://www.youtube.com/watch?v=dPn3GBI8lII)

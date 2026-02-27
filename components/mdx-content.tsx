@@ -1,4 +1,5 @@
 import { MDXRemote } from "next-mdx-remote/rsc";
+import { Tweet } from "react-tweet";
 import remarkGfm from "remark-gfm";
 import type { ComponentPropsWithoutRef } from "react";
 
@@ -71,6 +72,11 @@ const components = {
     <td className="px-3 py-2 text-foreground/80 border-b border-border/50" {...props} />
   ),
   hr: () => <hr className="my-8 border-border" />,
+  Tweet: ({ id }: { id: string }) => (
+    <div className="my-6 flex justify-center [&>div]:!max-w-full">
+      <Tweet id={id} />
+    </div>
+  ),
 };
 
 const options = {

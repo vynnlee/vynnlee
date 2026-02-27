@@ -23,7 +23,8 @@
     "backToBlog": "Back to blog",
     "share": "Share",
     "viewMarkdown": "View as Markdown",
-    "noPosts": "No posts yet."
+    "noPosts": "No posts yet.",
+    "morePosts": "More posts"
   },
   "Footer": {
     "switchLocale": "한국어",

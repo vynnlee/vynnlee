@@ -19,9 +19,10 @@ export async function generateMetadata({
     description: t("blogDescription"),
     alternates: {
       canonical: `${prefix}/blog`,
-      languages: { en: "/blog", ko: "/ko/blog" },
+      languages: { en: "/blog", ko: "/ko/blog", "x-default": "/blog" },
     },
     openGraph: {
+      locale: locale === "ko" ? "ko_KR" : "en_US",
       title: t("blogTitle"),
       description: t("blogDescription"),
       images: [{ url: SITE_OG_IMAGE, width: 1200, height: 630, alt: `${SITE_NAME} — ${SITE_JOB_TITLE}` }],

@@ -12,7 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "weekly",
     priority: 1.0,
     alternates: {
-      languages: { en: SITE_URL, ko: `${SITE_URL}/ko` },
+      languages: { en: SITE_URL, ko: `${SITE_URL}/ko`, "x-default": SITE_URL },
     },
   });
 
@@ -23,7 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "weekly",
     priority: 0.8,
     alternates: {
-      languages: { en: `${SITE_URL}/blog`, ko: `${SITE_URL}/ko/blog` },
+      languages: { en: `${SITE_URL}/blog`, ko: `${SITE_URL}/ko/blog`, "x-default": `${SITE_URL}/blog` },
     },
   });
 
@@ -39,6 +39,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         languages: {
           en: `${SITE_URL}/blog/${slug}`,
           ko: `${SITE_URL}/ko/blog/${slug}`,
+          "x-default": `${SITE_URL}/blog/${slug}`,
         },
       },
     });

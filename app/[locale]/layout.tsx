@@ -7,6 +7,7 @@ import { routing } from "@/i18n/routing";
 import { SITE_NAME, SITE_URL, SITE_JOB_TITLE, SITE_OG_IMAGE, SITE_TWITTER, SITE_SOCIALS } from "@/lib/constants";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Footer } from "@/components/footer";
+import { NavigationTracker } from "@/components/navigation-tracker";
 import "../globals.css";
 
 const pretendard = localFont({
@@ -20,37 +21,44 @@ export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
 
-export const metadata: Metadata = {
-  metadataBase: new URL(SITE_URL),
-  title: {
-    default: SITE_NAME,
-    template: `%s | ${SITE_NAME}`,
-  },
-  description:
-    `${SITE_NAME} is a design engineer building digital products with obsessive attention to detail. Writing about design, engineering, and technology.`,
-  openGraph: {
-    type: "website",
-    siteName: SITE_NAME,
-    locale: "en",
-    images: [
-      {
-        url: SITE_OG_IMAGE,
-        width: 1200,
-        height: 630,
-        alt: `${SITE_NAME} — ${SITE_JOB_TITLE}`,
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    creator: SITE_TWITTER,
-  },
-  alternates: {
-    canonical: "/",
-    languages: { en: "/", ko: "/ko" },
-    types: { "application/rss+xml": "/feed.xml" },
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+
+  return {
+    metadataBase: new URL(SITE_URL),
+    title: {
+      default: SITE_NAME,
+      template: `%s | ${SITE_NAME}`,
+    },
+    description: `${SITE_NAME} is a design engineer building digital products with obsessive attention to detail. Writing about design, engineering, and technology.`,
+    openGraph: {
+      type: "website",
+      siteName: SITE_NAME,
+      locale: locale === "ko" ? "ko_KR" : "en_US",
+      images: [
+        {
+          url: SITE_OG_IMAGE,
+          width: 1200,
+          height: 630,
+          alt: `${SITE_NAME} — ${SITE_JOB_TITLE}`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      creator: SITE_TWITTER,
+    },
+    alternates: {
+      canonical: "/",
+      languages: { en: "/", ko: "/ko", "x-default": "/" },
+      types: { "application/rss+xml": "/feed.xml" },
+    },
+  };
+}
 
 export default async function LocaleLayout({
   children,
@@ -95,6 +103,7 @@ export default async function LocaleLayout({
         />
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider>
+            <NavigationTracker />
             <div className="mx-auto min-h-svh max-w-[640px] px-4 md:px-6 pt-4 md:pt-16 pb-8 flex flex-col">
               <main className="flex-1">{children}</main>
               <Footer />

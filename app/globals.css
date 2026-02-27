@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+@import "react-tweet/theme.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -114,6 +115,21 @@
   --sidebar-accent-foreground: #e5e5e5;
   --sidebar-border: rgba(255, 255, 255, 0.08);
   --sidebar-ring: #525252;
+}
+
+/* react-tweet theme overrides */
+:root {
+  --tweet-bg-color: var(--background);
+  --tweet-border: 1px solid var(--border);
+  --tweet-font-family: var(--font-sans), system-ui, sans-serif;
+  --tweet-font-color: var(--foreground);
+  --tweet-font-color-secondary: var(--muted-foreground);
+  --tweet-actions-font-weight: 400;
+  --tweet-replies-font-weight: 400;
+}
+
+.dark {
+  --tweet-bg-color-hover: var(--muted);
 }
 
 @layer base {

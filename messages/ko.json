@@ -23,7 +23,8 @@
     "backToBlog": "블로그로",
     "share": "공유",
     "viewMarkdown": "마크다운으로 보기",
-    "noPosts": "아직 글이 없습니다."
+    "noPosts": "아직 글이 없습니다.",
+    "morePosts": "다른 글 살펴보기"
   },
   "Footer": {
     "switchLocale": "English",
